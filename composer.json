@@ -1,0 +1,19 @@
+{
+    "name": "genzouw/php-hdfs-client",
+    "description": "php to hdfs via webhdfs restfull api",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {"Com\\Genzouw\\": "src/"}
+    },
+    "authors": [
+        {
+            "name": "genzouw",
+            "email": "genzouw@gmail.com"
+        }
+    ]
+}
