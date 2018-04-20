@@ -56,7 +56,7 @@ class HDFSClient
 
         $op = 'APPEND';
         foreach ($this->requestHosts as $host) {
-            $ret = $this->doPost($host, 'APPEND', $hdfsFilePath, $data);
+            $ret = $this->doPost($host, 'APPEND', $hdfsFilePath, gzencode($data));
             break;
         }
 
