@@ -2,7 +2,7 @@
 
 namespace Com\Genzouw;
 
-class HDFSClient
+class HdfsClient
 {
     private $requestHosts = array();
     private $requestPort = null;
