@@ -9,6 +9,13 @@ class HdfsClient
     private $hdfsUser = null;
     private $requestUrl = 'http://%s:%d/webhdfs/v1%s?op=%s';
 
+    /**
+     * __construct.
+     *
+     * @param array  $hosts webhdfs serves
+     * @param int    $port  webhdfs port
+     * @param string $user  user
+     */
     public function __construct(array $hosts, int $port = 50070, string $user = 'hdfs')
     {
         $this->requestHosts = $hosts;
@@ -25,7 +32,7 @@ class HdfsClient
 
         $status = json_decode($ret, true);
 
-        return !(isset($status['RemoteException']['exception']) && $status['RemoteException']['exception'] === 'FileNotFoundException');
+        return $this->isSuccess($ret) || !$status['RemoteException']['exception'] === 'FileNotFoundException';
     }
 
     public function fileSize(string $hdfsFilePath)
@@ -43,21 +50,28 @@ class HdfsClient
         throw new Exception('Not implemented!');
     }
 
+    /**
+     * put data to hdfs.
+     *
+     * @param string $hdfsFilePath hdfs file path
+     * @param string $data         putting data
+     */
     public function putFileToRemote(string $hdfsFilePath, string $data)
     {
         if (!$this->fileExisted($hdfsFilePath)) {
-            $op = 'CREATE';
-
             foreach ($this->requestHosts as $host) {
                 $ret = $this->doPut($host, 'CREATE', $hdfsFilePath);
-                break;
+                if ($this->isSuccess($ret)) {
+                    break;
+                }
             }
         }
 
-        $op = 'APPEND';
         foreach ($this->requestHosts as $host) {
             $ret = $this->doPost($host, 'APPEND', $hdfsFilePath, gzencode($data));
-            break;
+            if ($this->isSuccess($ret)) {
+                break;
+            }
         }
 
         return $ret;
@@ -133,5 +147,16 @@ class HdfsClient
                 curl_close($ch);
             }
         }
+    }
+
+    private function isSuccess(string $ret)
+    {
+        if (empty($ret)) {
+            return true;
+        }
+
+        $status = json_decode($ret, true);
+
+        return !isset($status['RemoteException']['exception']) || empty($status['RemoteException']['exception']);
     }
 }
