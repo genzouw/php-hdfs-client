@@ -4,11 +4,9 @@ It is a library for accessing hdfs from php.
 You can install using Composer.
 We use webhdfs as communication protocol.
 
-
 ## Description
 
 **None**
-
 
 ## Demo
 
@@ -32,26 +30,19 @@ if ($status === false || !empty(json_decode($status, true)['RemoteException']['e
 }
 ```
 
-
 ## Requirements
 
 * [Composer](https://getcomposer.org/)
-
 
 ## Dependencies
 
 None.
 
-
 ## Installation
 
 ```bash
-
-$ composer require "genzouw/php-hadoop-clients:dev-master"
+$ composer require "genzouw/php-hdfs-client:dev-master"
 ```
-
-## Configuration
-
 
 ## Relase Note
 
@@ -59,12 +50,13 @@ $ composer require "genzouw/php-hadoop-clients:dev-master"
 | ---        | ---     | ---            |
 | 2018-09-07 | 0.1     | first release. |
 
-
-## License
-
-MIT / BSD
-
+This software is released under the MIT License, see LICENSE.
 
 ## Author Information
 
 [genzouw](https://genzouw.com)
+
+* Twitter   : @genzouw ( https://twitter.com/genzouw )
+* Facebook  : genzouw ( https://www.facebook.com/genzouw )
+* LinkedIn  : genzouw ( https://www.linkedin.com/in/genzouw/ )
+* Gmail     : genzouw@gmail.com
