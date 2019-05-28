@@ -1,7 +1,5 @@
 # php-hdfs-client
 
-*Overview*
-
 It is a library for accessing hdfs from php.
 You can install using Composer.
 We use webhdfs as communication protocol.
